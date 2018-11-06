@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { SpToken } from './SpToken';
+import { SpToken } from '../SpToken';
 import { Observable, of } from 'rxjs';
 
 
@@ -17,7 +17,7 @@ export class SpotifyService {
   constructor(private http: HttpClient) {}
 
   getQuery(query: String){
-    const url = `https://api.spotify.com/v1/${query}`;
+    const url = `/spotify-endpoint/${query}`;
 
     const headers = new HttpHeaders({
       'Authorization' : `Bearer ${this.token.accessToken}`
@@ -39,7 +39,7 @@ export class SpotifyService {
 
     this.http.post(url, body, headers).pipe(
       catchError(this.handleError('getToken', []))
-    ).subscribe(retData => {
+    ).subscribe((retData: any) => {
       console.log(retData);
       this.token = new SpToken();
       this.token.accessToken = retData.access_token;
@@ -47,7 +47,14 @@ export class SpotifyService {
       this.token.expiresIn = retData.expires_in;
       this.token.expireDate = new Date();
       this.token.expireDate.setSeconds(this.token.expireDate.getSeconds() + (this.token.expiresIn - 300));
-      console.log('The token is: ' + this.token.expireDate);
+
+      this.searchArtist('cold').subscribe((resp: any) => {
+        console.log(resp);
+        console.log(resp.items[0].id);
+        this.getArtistFromId(resp.items[0].id).subscribe((res: any) => {console.log("ARTIST :"); console.log(res)});
+        this.getArtistTopTracksFromId(resp.items[0].id).subscribe((res: any) => {console.log("TOP TRACKS :"); console.log(res)});
+        this.getNewReleases().subscribe((res: any) => {console.log("NEW RELEASES :"); console.log(res)});
+      });
     });
   }
 
@@ -58,6 +65,18 @@ export class SpotifyService {
     return (false);
   }
 
+  searchArtist(query: string) {
+    return this.getQuery('search?type=artist&limit=20&q=' + query).pipe(map(data => data['artists']));
+  }
+
+  getArtistFromId(artistId: string) {
+    return this.getQuery('artists/' + artistId);
+  }
+
+  getArtistTopTracksFromId(artistId: string) {
+    return this.getQuery(`artists/${artistId}/top-tracks?market=US`);
+  }
+
   getNewReleases() {
     return this.getQuery('browse/new-releases?limit=20')
       .pipe(map(data => data['albums'].items));
@@ -65,11 +84,7 @@ export class SpotifyService {
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead
-
-      // Let the app keep running by returning an empty result.
       return of(result as T);
     };
   }

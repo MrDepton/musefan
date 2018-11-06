@@ -6,5 +6,13 @@
       "^/spotify-account": ""
     },
     "changeOrigin": true
+  },
+  "/spotify-endpoint": {
+    "target": "https://api.spotify.com/v1",
+    "secure": true,
+    "pathRewrite": {
+      "^/spotify-endpoint": ""
+    },
+    "changeOrigin": true
   }
 }
