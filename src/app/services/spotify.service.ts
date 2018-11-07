@@ -12,7 +12,7 @@ export class SpotifyService {
 
   private clientId = 'c0da6c8427dd49a682b1eadb91546417';
   private clientSecret = '3558d134fa804a38900a620ba67aa1e6';
-  private token:  SpToken;
+  private token: SpToken;
 
   constructor(private http: HttpClient) {}
 
@@ -47,14 +47,6 @@ export class SpotifyService {
       this.token.expiresIn = retData.expires_in;
       this.token.expireDate = new Date();
       this.token.expireDate.setSeconds(this.token.expireDate.getSeconds() + (this.token.expiresIn - 300));
-
-      this.searchArtist('cold').subscribe((resp: any) => {
-        console.log(resp);
-        console.log(resp.items[0].id);
-        this.getArtistFromId(resp.items[0].id).subscribe((res: any) => {console.log("ARTIST :"); console.log(res)});
-        this.getArtistTopTracksFromId(resp.items[0].id).subscribe((res: any) => {console.log("TOP TRACKS :"); console.log(res)});
-        this.getNewReleases().subscribe((res: any) => {console.log("NEW RELEASES :"); console.log(res)});
-      });
     });
   }
 
