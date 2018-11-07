@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../services/spotify.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { DataService } from '../services/data-service.service';
 
 
 @Component({
@@ -15,7 +16,10 @@ export class SearchComponent implements OnInit {
   queryField: FormControl = new FormControl();
   nodisp: boolean = false;
 
-  constructor(private spotifyService: SpotifyService) { }
+  constructor(
+    private spotifyService: SpotifyService,
+    private data: DataService
+  ) { }
 
   ngOnInit() {
     // console.log('Running INIT.');
@@ -40,6 +44,7 @@ export class SearchComponent implements OnInit {
           }
         });
       });
+    this.data.currentArtist.subscribe(artist => this.queryField.setValue(artist));
   }
 
   onResultClicked(result) {
@@ -47,5 +52,6 @@ export class SearchComponent implements OnInit {
     this.nodisp = true;
     this.results = [];
     console.log('Click fired.');
+    this.data.changeArtist(result.name);
   }
 }
