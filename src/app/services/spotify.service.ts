@@ -47,6 +47,7 @@ export class SpotifyService {
       this.token.expiresIn = retData.expires_in;
       this.token.expireDate = new Date();
       this.token.expireDate.setSeconds(this.token.expireDate.getSeconds() + (this.token.expiresIn - 300));
+      console.log('Got Token');
     });
   }
 
