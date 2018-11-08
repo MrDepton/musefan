@@ -7,6 +7,8 @@ Musefan is a very simple mashup application built with Angular 6 that implements
 
 ## Quick run via development server
 
+Make sure you have the `npm` package manager installed and the run `npm install` at the root of the repository.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Using the app
