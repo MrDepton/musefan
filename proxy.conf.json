@@ -14,5 +14,13 @@
       "^/spotify-endpoint": ""
     },
     "changeOrigin": true
+  },
+  "/googleapis": {
+    "target": "https://maps.googleapis.com",
+    "secure": true,
+    "pathRewrite": {
+      "^/googleapis": ""
+    },
+    "changeOrigin": true
   }
 }

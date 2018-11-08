@@ -24,6 +24,6 @@ import { ConcertsComponent } from './concerts/concerts.component';
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent, SearchComponent]
+  bootstrap: [AppComponent, SearchComponent, ConcertsComponent]
 })
 export class AppModule { }

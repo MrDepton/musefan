@@ -1,0 +1,9 @@
+<div *ngIf="artistName">
+  Upcoming concerts for {{artistName}} :
+
+  <div class="concert-box" *ngFor="let concert of concerts">
+    Name : {{concert._attributes.displayName}}<br />
+    Location : {{concert.location._attributes.city}}<br />
+    Drive time from Paris: {{concert.travel}}
+  </div>
+</div>

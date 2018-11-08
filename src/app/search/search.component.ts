@@ -44,14 +44,14 @@ export class SearchComponent implements OnInit {
           }
         });
       });
-    this.data.currentArtist.subscribe(artist => this.queryField.setValue(artist));
+    // this.data.currentArtist.subscribe(artist => this.queryField.setValue(artist));
   }
 
   onResultClicked(result) {
+    this.data.changeArtist(result.name);
     this.queryField.setValue(result.name);
     this.nodisp = true;
     this.results = [];
     console.log('Click fired.');
-    this.data.changeArtist(result.name);
   }
 }
