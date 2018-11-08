@@ -27,7 +27,7 @@ Good artists to try:
 
 The aim of this project was to create a simple mashup application implementing standard webservice protocoles in a useful and meaningful way. Here we have an integration of 3 APIs
 that complete each other in a helpful way. I retrieve artists via Spotify because of the exhaustivity of its database. I use Songkick for concerts because of the company's leadership in ticket reservations worldwide.
-Google mas as the smartest choice for retrieving places because of the reactivity of the service.
+Google maps was the smartest choice for retrieving routes because of the reactivity of the service.
 
 Spotify and Google Maps APIs use JSON for communication and are decoded by Angular's built'in parser. The Songkick API uses XML which is parsed using the xml-js library.
 
