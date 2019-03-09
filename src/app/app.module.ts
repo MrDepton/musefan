@@ -26,4 +26,5 @@ import { ConcertsComponent } from './concerts/concerts.component';
   providers: [],
   bootstrap: [AppComponent, SearchComponent, ConcertsComponent]
 })
+
 export class AppModule { }
